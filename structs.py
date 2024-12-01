@@ -1,5 +1,13 @@
 import numpy as np
 
+
+def vec2(x,y):
+    return np.array([x,y], dtype=float)
+def vec3(x,y,z):
+    return np.array([x,y,z], dtype=float)
+def mat3(a,b,c):
+    return np.vstack((a,b,c))
+
 class Material:
     def __init__(self, color, smoothness, emission):
         self.color = np.array(color, dtype=float)
@@ -22,9 +30,10 @@ class Ray:
         self.incoming_light = np.array(incoming_light, dtype=float)
 
 class Camera:
-    def __init__(self, pos, rot, fov, near_clip_plane, aspect, plane_width, plane_height):
+    def __init__(self, pos, rot, rotation_matrix, fov, near_clip_plane, aspect, plane_width, plane_height):
         self.pos = np.array(pos, dtype=float)
         self.rot = np.array(rot, dtype=float)
+        self.rotation_matrix = rotation_matrix
         self.fov = float(fov)
         self.near_clip_plane = float(near_clip_plane)
         self.aspect = float(aspect)
@@ -51,7 +60,7 @@ class Plane:
         self.mat = mat
 
 class Box:
-    def __init__(self, c1, c2, mat):
-        self.c1 = np.array(c1, dtype=float)
-        self.c2 = np.array(c2, dtype=float)
+    def __init__(self, center, size, mat):
+        self.center = np.array(center, dtype=float)
+        self.size = np.array(size, dtype=float)
         self.mat = mat
